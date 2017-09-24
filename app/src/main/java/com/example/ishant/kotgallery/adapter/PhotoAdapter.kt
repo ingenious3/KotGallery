@@ -1,4 +1,4 @@
-package com.example.ishant.kotgallery
+package com.example.ishant.kotgallery.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.example.ishant.kotgallery.R
 import com.example.ishant.kotgallery.models.Photo
 
-class MainAdapter(var photos:List<Photo>, var clickListener : View.OnClickListener?) : RecyclerView.Adapter<MainAdapter.PhotoHolder>() {
+class PhotoAdapter(var photos:List<Photo>, var clickListener : View.OnClickListener?) : RecyclerView.Adapter<PhotoAdapter.PhotoHolder>() {
     override fun getItemCount(): Int {
         return photos.size
     }

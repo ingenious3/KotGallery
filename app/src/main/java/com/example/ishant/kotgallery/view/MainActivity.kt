@@ -1,4 +1,4 @@
-package com.example.ishant.kotgallery
+package com.example.ishant.kotgallery.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.example.ishant.kotgallery.DetailActivity
+import com.example.ishant.kotgallery.R
+import com.example.ishant.kotgallery.adapter.PhotoAdapter
 import com.example.ishant.kotgallery.api.PhotoRetriever
 import com.example.ishant.kotgallery.models.Photo
 import com.example.ishant.kotgallery.models.PhotoList
@@ -20,7 +21,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     var photos: List<Photo>? = null
-    var mainAdapter: MainAdapter? = null
+    var photoAdapter: PhotoAdapter? = null
     lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +42,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun onResponse(call: Call<PhotoList>?, response: Response<PhotoList>?) {
                 response?.isSuccessful.let {
                     this@MainActivity.photos = response?.body()?.hits
-                    mainAdapter = MainAdapter(this@MainActivity.photos!!, this@MainActivity)
-                    recyclerView.adapter = mainAdapter
+                    photoAdapter = PhotoAdapter(this@MainActivity.photos!!, this@MainActivity)
+                    recyclerView.adapter = photoAdapter
                 }
             }
 
@@ -52,8 +53,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         val intent = Intent(this, DetailActivity::class.java)
-        val holder = view?.tag as MainAdapter.PhotoHolder
-        intent.putExtra(DetailActivity.PHOTO, mainAdapter?.getPhoto(holder.adapterPosition))
+        val holder = view?.tag as PhotoAdapter.PhotoHolder
+        intent.putExtra(DetailActivity.PHOTO, photoAdapter?.getPhoto(holder.adapterPosition))
         startActivity(intent)
 
     }
